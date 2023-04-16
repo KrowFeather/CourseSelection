@@ -100,4 +100,15 @@ public class Student {
     public static void checkCourses() {
         Courses.overview();
     }
+
+    public static void overview(){
+        System.out.println("----------------------------");
+        int i=0;
+        while(i<Main.studentArrayList.size()){
+            System.out.println("用户名\t\t姓名\t\tid");
+            System.out.println(Main.studentArrayList.get(i).userName+"\t\t"+Main.studentArrayList.get(i).name+"\t\t"+Main.studentArrayList.get(i).id);
+            i++;
+        }
+        System.out.println("----------------------------");
+    }
 }

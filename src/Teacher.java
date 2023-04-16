@@ -98,4 +98,16 @@ public class Teacher {
         }
         System.out.println("----------------------------");
     }
+
+    public static void overview(){
+        System.out.println("----------------------------");
+        int i=0;
+        while(i<Main.teacherArrayList.size()){
+            System.out.println("用户名\t\t姓名");
+            System.out.println(Main.teacherArrayList.get(i).userName+"\t\t"+Main.teacherArrayList.get(i).name);
+            i++;
+        }
+        System.out.println("----------------------------");
+    }
+
 }

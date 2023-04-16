@@ -137,14 +137,7 @@ public class Administrator {
     }
 
     public void studentInfo() {
-        System.out.println("----------------------------");
-        int i=0;
-        while(i<Main.studentArrayList.size()){
-            System.out.println("用户名\t\t姓名\t\tid");
-            System.out.println(Main.studentArrayList.get(i).userName+"\t\t"+Main.studentArrayList.get(i).name+"\t\t"+Main.studentArrayList.get(i).id);
-            i++;
-        }
-        System.out.println("----------------------------");
+        Student.overview();
     }
 
     /*
@@ -246,14 +239,7 @@ public class Administrator {
     }
 
     public void teacherInfo() {
-        System.out.println("----------------------------");
-        int i=0;
-        while(i<Main.teacherArrayList.size()){
-            System.out.println("用户名\t\t姓名");
-            System.out.println(Main.teacherArrayList.get(i).userName+"\t\t"+Main.teacherArrayList.get(i).name);
-            i++;
-        }
-        System.out.println("----------------------------");
+        Teacher.overview();
     }
 
     /*
