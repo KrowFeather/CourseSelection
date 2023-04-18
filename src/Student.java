@@ -10,7 +10,7 @@ public class Student {
     public Student(){
         this.password="123456";
     }
-    public static ArrayList<Courses> studentCourse = new ArrayList<>();
+    public  ArrayList<Courses> studentCourse = new ArrayList<>();
     public static boolean login(){
         Scanner sc = new Scanner(System.in);
         String userName;
@@ -77,24 +77,56 @@ public class Student {
         System.out.println("----------------------------");
     }
 
-    public static void courseManager() {
+    public static void addCourses() {
+        System.out.println("----------------------------");
         Scanner sc = new Scanner(System.in);
         int i=0;
-        String name;
+        String name,teacher;
+        System.out.println("请输入课程名:");
         name=sc.next();
+        System.out.println("请输入教师名:");
+        teacher=sc.next();
+        boolean flag=false;
         while(i<Main.coursesArrayList.size()){
-            if(name.equals(Main.coursesArrayList.get(i).name)){
+            if(name.equals(Main.coursesArrayList.get(i).name)&&teacher.equals(Main.coursesArrayList.get(i).teacher)){
                 System.out.println("添加成功");
-                studentCourse.add(Main.coursesArrayList.get(i));
+                thisStudent.studentCourse.add(Main.coursesArrayList.get(i));
+                Main.coursesArrayList.get(i).stuNumber++;
+                flag=true;
+                break;
             }
             i++;
         }
-    }
-
-    public static void addCourses() {
+        if(!flag){
+            System.out.println("添加失败，未找到课程");
+        }
+        System.out.println("----------------------------");
     }
 
     public static void deleteCourses() {
+        System.out.println("----------------------------");
+        Scanner sc = new Scanner(System.in);
+        int i=0;
+        String name,teacher;
+        System.out.println("请输入课程名:");
+        name=sc.next();
+        System.out.println("请输入教师名:");
+        teacher=sc.next();
+        boolean flag=false;
+        while(i<thisStudent.studentCourse.size()){
+            if(name.equals(thisStudent.studentCourse.get(i).name)&&teacher.equals(thisStudent.studentCourse.get(i).teacher)){
+                System.out.println("删除成功");
+                thisStudent.studentCourse.get(i).stuNumber--;
+                thisStudent.studentCourse.remove(i);
+                flag=true;
+                break;
+            }
+            i++;
+        }
+        if(!flag){
+            System.out.println("删除失败，未找到课程");
+        }
+        System.out.println("----------------------------");
     }
 
     public static void checkCourses() {

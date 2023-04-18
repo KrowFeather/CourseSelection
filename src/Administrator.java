@@ -91,7 +91,7 @@ public class Administrator {
                 String newId;
                 System.out.println("请输入新姓名:");
                 newName=sc.next();
-                System.out.println("请输入新学号");
+                System.out.println("请输入新学号:");
                 newId = sc.next();
                 Main.studentArrayList.get(i).name=newName;
                 Main.studentArrayList.get(i).id=newId;
