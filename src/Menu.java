@@ -23,16 +23,16 @@ public class Menu {
         while(i<Main.teacherArrayList.size()){
             int j=0;
             while(j<Main.coursesArrayList.size()) {
-                if (Main.coursesArrayList.get(i).teacher.equals(Main.teacherArrayList.get(i).name)) {
-                    Main.teacherArrayList.get(i).ownCourses.add(Main.coursesArrayList.get(i));
+                if (Main.coursesArrayList.get(j).teacher.equals(Main.teacherArrayList.get(i).name)&&Teacher.isCourseFound(Main.coursesArrayList.get(j))) {
+                    Main.teacherArrayList.get(i).ownCourses.add(Main.coursesArrayList.get(j));
                     break;
                 }
                 j++;
             }
             j=0;
             while(j<Main.classArrayList.size()) {
-                if (Main.classArrayList.get(i).teacher.equals(Main.teacherArrayList.get(i).name)) {
-                    Main.teacherArrayList.get(i).ownClasses.add(Main.classArrayList.get(i));
+                if (Main.classArrayList.get(j).teacher.equals(Main.teacherArrayList.get(i).name)&&Teacher.isClassFound(Main.classArrayList.get(j))) {
+                    Main.teacherArrayList.get(i).ownClasses.add(Main.classArrayList.get(j));
                     break;
                 }
                 j++;

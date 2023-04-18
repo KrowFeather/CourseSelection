@@ -110,4 +110,33 @@ public class Teacher {
         System.out.println("----------------------------");
     }
 
+    public static boolean isClassFound(Class aClass) {
+        int i=0;
+        while(i<Main.teacherArrayList.size()){
+            int j=0;
+            while(j<Main.teacherArrayList.get(i).ownClasses.size()) {
+                if (aClass.teacher.equals(Main.teacherArrayList.get(i).ownClasses.get(j).teacher) && aClass.name.equals(Main.teacherArrayList.get(i).ownClasses.get(j).name)){
+                    return false;
+                }
+                j++;
+            }
+            i++;
+        }
+        return true;
+    }
+
+    public static boolean isCourseFound(Courses courses) {
+        int i=0;
+        while(i<Main.teacherArrayList.size()){
+            int j=0;
+            while(j<Main.teacherArrayList.get(i).ownCourses.size()) {
+                if (courses.teacher.equals(Main.teacherArrayList.get(i).ownCourses.get(j).teacher) && courses.name.equals(Main.teacherArrayList.get(i).ownCourses.get(j).name)){
+                    return false;
+                }
+                j++;
+            }
+            i++;
+        }
+        return true;
+    }
 }
