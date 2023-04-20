@@ -1,39 +1,13 @@
 import java.util.ArrayList;
 import java.util.Scanner;
-
-public class Administrator {
-    private static final String userName="admin";
-    private static final String password="123456";
-    public boolean login(){
-        Scanner sc = new Scanner(System.in);
-        String userName;
-        String password;
-        boolean flag=false;
-        int choice;
-        do {
-            System.out.println("请输入用户名：");
-            userName=sc.next();
-            System.out.println("请输入密码：");
-            password=sc.next();
-            if (userName.equals(Administrator.userName) && password.equals(Administrator.password)) {
-                System.out.println("登录成功");
-                flag=true;
-            } else {
-                System.out.println("登录失败");
-                System.out.println("输入0退回主菜单,输入除0外任意数字重新登录");
-                choice=sc.nextInt();
-                if(choice==0){
-                    return false;
-                }
-            }
-        }while(!flag);
-        return true;
-    }
-
+@SuppressWarnings("Duplicates")
+public class Administrator extends CourseSelectionSystem {
+    protected static final String userName="admin";
+    protected static final String password="123456";
    /*
         student area
     */
-    public void addStudent(ArrayList<Student> studentArrayList) {
+    public void addStudent() {
         Student student = new Student();
         System.out.println("----------------------------");
         System.out.println("输入用户名");
@@ -54,7 +28,7 @@ public class Administrator {
         System.out.println("----------------------------");
     }
 
-    public void deleteStudent(ArrayList<Student> studentArrayList) {
+    public void deleteStudent() {
         System.out.println("----------------------------");
         System.out.println("请输入要删除的用户名");
         Scanner sc = new Scanner(System.in);
@@ -77,7 +51,7 @@ public class Administrator {
         System.out.println("----------------------------");
     }
 
-    public void modifyStudent(ArrayList<Student> studentArrayList) {
+    public void modifyStudent() {
         System.out.println("----------------------------");
         System.out.println("请输入要修改的用户名:");
         Scanner sc = new Scanner(System.in);
@@ -109,7 +83,7 @@ public class Administrator {
         }
     }
 
-    public void searchStudent(ArrayList<Student> studentArrayList) {
+    public void searchStudent() {
         System.out.println("----------------------------");
         System.out.println("请输入要查询的用户名:");
         Scanner sc = new Scanner(System.in);
@@ -137,8 +111,8 @@ public class Administrator {
         }
     }
 
-    public void studentInfo(ArrayList<Student> studentArrayList) {
-        Student.overview(studentArrayList);
+    public void studentInfo() {
+       studentArrayList.get(0).overview();
     }
 
     /*

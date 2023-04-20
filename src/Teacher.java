@@ -1,48 +1,16 @@
 import java.util.ArrayList;
 import java.util.Scanner;
-
+@SuppressWarnings("Duplicates")
 public class Teacher extends CourseSelectionSystem{
     public String userName;
     public String name;
-    private String password;
+    protected String password;
     public ArrayList<SchoolClass> ownSchoolClasses = new ArrayList<>();
     public ArrayList<Courses> ownCourses = new ArrayList<>();
     public Teacher(){
         this.password="123456";
     }
-    public boolean login(ArrayList<Teacher> teacherArrayList){
-        Scanner sc = new Scanner(System.in);
-        String userName;
-        String password;
-        boolean flag=false;
-        int choice;
-        do {
-            int i=0;
-            System.out.println("请输入用户名：");
-            userName = sc.next();
-            System.out.println("请输入密码：");
-            password = sc.next();
-            while (i < teacherArrayList.size()) {
-                if (userName.equals(teacherArrayList.get(i).userName) && password.equals(teacherArrayList.get(i).password)) {
-                    flag = true;
-                    break;
-                }
-                i++;
-            }
-            if (!flag) {
-                System.out.println("登录失败，密码错误或用户名不存在");
-                System.out.println("输入0退回主菜单,输入除0外任意数字重新登录");
-                choice = sc.nextInt();
-                if (choice == 0) {
-                    return false;
-                }
-            } else {
-                System.out.println("登录成功");
-                thisTeacher=teacherArrayList.get(i);
-            }
-        }while(!flag);
-        return true;
-    }
+
     public void changePwd(){
         int choice;
         Scanner sc = new Scanner(System.in);

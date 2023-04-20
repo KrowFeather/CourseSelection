@@ -1,5 +1,5 @@
 import java.util.Scanner;
-
+@SuppressWarnings("Duplicates")
 public class Menu extends CourseSelectionSystem{
     //initialize main menu
     public void initial(){
@@ -50,21 +50,21 @@ public class Menu extends CourseSelectionSystem{
                     System.exit(0);
                     break;
                 case 1:
-                    check=admin.login();
+                    check=adminLogin();
                     if(check) {
                         adminMenu();
                     }
                     flag = true;
                     break;
                 case 2:
-                    check=studentArrayList.get(0).login(studentArrayList);
+                    check=studentLogin();
                     if(check) {
                         studentMenu();
                     }
                     flag = true;
                     break;
                 case 3:
-                    check=teacherArrayList.get(0).login(teacherArrayList);
+                    check=teacherLogin();
                     if(check) {
                         teacherMenu();
                     }
@@ -342,23 +342,23 @@ public class Menu extends CourseSelectionSystem{
                     flag=true;
                     break;
                 case 1:
-                    admin.addStudent(studentArrayList);
+                    admin.addStudent();
                     flag=true;
                     break;
                 case 2:
-                    admin.deleteStudent(studentArrayList);
+                    admin.deleteStudent();
                     flag=true;
                     break;
                 case 3:
-                    admin.modifyStudent(studentArrayList);
+                    admin.modifyStudent();
                     flag=true;
                     break;
                 case 4:
-                    admin.searchStudent(studentArrayList);
+                    admin.searchStudent();
                     flag=true;
                     break;
                 case 5:
-                    admin.studentInfo(studentArrayList);
+                    admin.studentInfo();
                 default:
                     System.out.println("invalid choice!");
                     choice = sc.nextInt();
