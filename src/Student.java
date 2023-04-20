@@ -1,17 +1,16 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Student {
+public class Student extends CourseSelectionSystem{
     public String userName;
     public String name;
     public String id;
     private String password;
-    private static Student thisStudent;
     public Student(){
         this.password="123456";
     }
-    public  ArrayList<Courses> studentCourse = new ArrayList<>();
-    public static boolean login(){
+    public ArrayList<Courses> studentCourse = new ArrayList<>();
+    public boolean login(ArrayList<Student> studentArrayList){
         Scanner sc = new Scanner(System.in);
         String userName;
         String password;
@@ -23,8 +22,8 @@ public class Student {
             userName = sc.next();
             System.out.println("请输入密码：");
             password = sc.next();
-            while (i < Main.studentArrayList.size()) {
-                if (userName.equals(Main.studentArrayList.get(i).userName) && password.equals(Main.studentArrayList.get(i).password)) {
+            while (i <studentArrayList.size()) {
+                if (userName.equals(studentArrayList.get(i).userName) && password.equals(studentArrayList.get(i).password)) {
                     flag = true;
                     break;
                 }
@@ -39,12 +38,12 @@ public class Student {
                 }
             } else {
                 System.out.println("登录成功");
-                thisStudent=Main.studentArrayList.get(i);
+                thisStudent=studentArrayList.get(i);
             }
         }while(!flag);
         return true;
     }
-    public static void changePwd(){
+    public void changePwd(){
         int choice;
         Scanner sc = new Scanner(System.in);
         String password;
@@ -70,14 +69,14 @@ public class Student {
         System.out.println("----------------------------");
     }
 
-    public static void selfBio() {
+    public void selfBio() {
         System.out.println("----------------------------");
         System.out.println("用户名："+thisStudent.userName);
         System.out.println("姓名："+thisStudent.name);
         System.out.println("----------------------------");
     }
 
-    public static void addCourses() {
+    public void addCourses(ArrayList<Courses> coursesArrayList) {
         System.out.println("----------------------------");
         Scanner sc = new Scanner(System.in);
         int i=0;
@@ -87,11 +86,11 @@ public class Student {
         System.out.println("请输入教师名:");
         teacher=sc.next();
         boolean flag=false;
-        while(i<Main.coursesArrayList.size()){
-            if(name.equals(Main.coursesArrayList.get(i).name)&&teacher.equals(Main.coursesArrayList.get(i).teacher)){
+        while(i<coursesArrayList.size()){
+            if(name.equals(coursesArrayList.get(i).name)&&teacher.equals(coursesArrayList.get(i).teacher)){
                 System.out.println("添加成功");
-                thisStudent.studentCourse.add(Main.coursesArrayList.get(i));
-                Main.coursesArrayList.get(i).stuNumber++;
+                thisStudent.studentCourse.add(coursesArrayList.get(i));
+                coursesArrayList.get(i).stuNumber++;
                 flag=true;
                 break;
             }
@@ -103,7 +102,7 @@ public class Student {
         System.out.println("----------------------------");
     }
 
-    public static void deleteCourses() {
+    public void deleteCourses() {
         System.out.println("----------------------------");
         Scanner sc = new Scanner(System.in);
         int i=0;
@@ -129,16 +128,16 @@ public class Student {
         System.out.println("----------------------------");
     }
 
-    public static void checkCourses() {
-        Courses.overview();
+    public void checkCourses(ArrayList<Courses> coursesArrayList) {
+        coursesArrayList.get(0).overview(coursesArrayList);
     }
 
-    public static void overview(){
+    public static void overview(ArrayList<Student> studentArrayList){
         System.out.println("----------------------------");
         int i=0;
-        while(i<Main.studentArrayList.size()){
+        while(i<studentArrayList.size()){
             System.out.println("用户名\t\t姓名\t\tid");
-            System.out.println(Main.studentArrayList.get(i).userName+"\t\t"+Main.studentArrayList.get(i).name+"\t\t"+Main.studentArrayList.get(i).id);
+            System.out.println(studentArrayList.get(i).userName+"\t\t"+studentArrayList.get(i).name+"\t\t"+studentArrayList.get(i).id);
             i++;
         }
         System.out.println("----------------------------");

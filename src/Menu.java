@@ -1,10 +1,9 @@
 import java.util.Scanner;
 
-public class Menu {
-    Administrator admin = new Administrator();
-    Scanner sc = new Scanner(System.in);
+public class Menu extends CourseSelectionSystem{
     //initialize main menu
     public void initial(){
+        Scanner sc = new Scanner(System.in);
         int choice;
         preLoad();
         System.out.println("-------欢迎进入选课系统-------");
@@ -20,19 +19,19 @@ public class Menu {
 
     private void preLoad() {
         int i=0;
-        while(i<Main.teacherArrayList.size()){
+        while(i<teacherArrayList.size()){
             int j=0;
-            while(j<Main.coursesArrayList.size()) {
-                if (Main.coursesArrayList.get(j).teacher.equals(Main.teacherArrayList.get(i).name)&&Teacher.isCourseFound(Main.coursesArrayList.get(j))) {
-                    Main.teacherArrayList.get(i).ownCourses.add(Main.coursesArrayList.get(j));
+            while(j<coursesArrayList.size()) {
+                if (coursesArrayList.get(j).teacher.equals(teacherArrayList.get(i).name)&&teacherArrayList.get(0).isCourseFound(coursesArrayList.get(j),teacherArrayList)) {
+                    teacherArrayList.get(i).ownCourses.add(coursesArrayList.get(j));
                     break;
                 }
                 j++;
             }
             j=0;
-            while(j<Main.classArrayList.size()) {
-                if (Main.classArrayList.get(j).teacher.equals(Main.teacherArrayList.get(i).name)&&Teacher.isClassFound(Main.classArrayList.get(j))) {
-                    Main.teacherArrayList.get(i).ownClasses.add(Main.classArrayList.get(j));
+            while(j< schoolClassArrayList.size()) {
+                if (schoolClassArrayList.get(j).teacher.equals(teacherArrayList.get(i).name)&&teacherArrayList.get(0).isClassFound(schoolClassArrayList.get(j),teacherArrayList)) {
+                    teacherArrayList.get(i).ownSchoolClasses.add(schoolClassArrayList.get(j));
                     break;
                 }
                 j++;
@@ -42,6 +41,7 @@ public class Menu {
     }
 
     private void checkChoice(int choice){
+        Scanner sc = new Scanner(System.in);
         boolean check;
         boolean flag=false;
         do {
@@ -57,14 +57,14 @@ public class Menu {
                     flag = true;
                     break;
                 case 2:
-                    check=Student.login();
+                    check=studentArrayList.get(0).login(studentArrayList);
                     if(check) {
                         studentMenu();
                     }
                     flag = true;
                     break;
                 case 3:
-                    check=Teacher.login();
+                    check=teacherArrayList.get(0).login(teacherArrayList);
                     if(check) {
                         teacherMenu();
                     }
@@ -85,6 +85,7 @@ public class Menu {
         top menu
      */
     private void adminMenu(){
+        Scanner sc = new Scanner(System.in);
         int choice;
         System.out.println("----------管理员菜单----------");
         System.out.println("1.学生管理");
@@ -98,6 +99,7 @@ public class Menu {
         checkAdminChoice(choice);
     }
     private void teacherMenu() {
+        Scanner sc = new Scanner(System.in);
         int choice;
         System.out.println("-----------教师菜单----------");
         System.out.println("1.选课管理");
@@ -112,6 +114,7 @@ public class Menu {
         checkTeacherChoice(choice);
     }
     private void studentMenu() {
+        Scanner sc = new Scanner(System.in);
         int choice;
         System.out.println("-----------学生菜单----------");
         System.out.println("1.选课管理");
@@ -125,6 +128,7 @@ public class Menu {
     }
 
     private void checkStudentChoice(int choice) {
+        Scanner sc = new Scanner(System.in);
         boolean flag=false;
         do{
             switch (choice){
@@ -168,9 +172,9 @@ public class Menu {
         student secondary menu
      */
     private void courseManagerForStudentMenu() {
+        Scanner sc = new Scanner(System.in);
         int choice;
         boolean flag=false;
-        Scanner sc =new Scanner(System.in);
         System.out.println("-----------选课管理----------");
         System.out.println("1.新增选课");
         System.out.println("2.删除已选");
@@ -182,15 +186,15 @@ public class Menu {
         do {
             switch (choice) {
                 case 1:
-                    Student.addCourses();
+                    thisStudent.addCourses(coursesArrayList);
                     flag = true;
                     break;
                 case 2:
-                    Student.deleteCourses();
+                    thisStudent.deleteCourses();
                     flag = true;
                     break;
                 case 3:
-                    Student.checkCourses();
+                    thisStudent.checkCourses(coursesArrayList);
                     flag = true;
                     break;
                 default:
@@ -202,17 +206,18 @@ public class Menu {
     }
 
     private void studentSelfBio() {
-        Student.selfBio();
+        thisStudent.selfBio();
     }
 
     private void studentChangePwd() {
-        Student.changePwd();
+        thisStudent.changePwd();
     }
 
     /*
         teacher utils
      */
     private void checkTeacherChoice(int choice) {
+        Scanner sc = new Scanner(System.in);
         boolean flag=false;
         do{
             switch (choice){
@@ -264,26 +269,27 @@ public class Menu {
         teacher secondary menu
      */
     private void courseManagerForTeacherMenu() {
-        Teacher.ownCoursesInfo();
+        thisTeacher.ownCoursesInfo();
     }
     private void studentInfoForTeacher() {
     }
     private void teacherChangePwd() {
-        Teacher.changePwd();
+        thisTeacher.changePwd();
     }
 
     private void teacherSelfBio() {
-        Teacher.selfBio();
+
     }
 
     private void classInfoForTeacher() {
-        Teacher.ownClassInfo();
+        thisTeacher.ownClassInfo();
     }
 
     /*
         admin utils
      */
     private void checkAdminChoice(int choice){
+        Scanner sc = new Scanner(System.in);
         boolean flag=false;
         do{
             switch (choice){
@@ -327,6 +333,7 @@ public class Menu {
         }while(!flag);
     }
     private void checkStudentMgrChoice(int choice){
+        Scanner sc = new Scanner(System.in);
         boolean flag=false;
         do{
             switch (choice){
@@ -335,23 +342,23 @@ public class Menu {
                     flag=true;
                     break;
                 case 1:
-                    admin.addStudent();
+                    admin.addStudent(studentArrayList);
                     flag=true;
                     break;
                 case 2:
-                    admin.deleteStudent();
+                    admin.deleteStudent(studentArrayList);
                     flag=true;
                     break;
                 case 3:
-                    admin.modifyStudent();
+                    admin.modifyStudent(studentArrayList);
                     flag=true;
                     break;
                 case 4:
-                    admin.searchStudent();
+                    admin.searchStudent(studentArrayList);
                     flag=true;
                     break;
                 case 5:
-                    admin.studentInfo();
+                    admin.studentInfo(studentArrayList);
                 default:
                     System.out.println("invalid choice!");
                     choice = sc.nextInt();
@@ -360,6 +367,7 @@ public class Menu {
         }while(!flag);
     }
     private void checkTeacherMgrChoice(int choice) {
+        Scanner sc = new Scanner(System.in);
         boolean flag=false;
         do{
             switch (choice){
@@ -368,23 +376,23 @@ public class Menu {
                     flag=true;
                     break;
                 case 1:
-                    admin.addTeacher();
+                    admin.addTeacher(teacherArrayList);
                     flag=true;
                     break;
                 case 2:
-                    admin.deleteTeacher();
+                    admin.deleteTeacher(teacherArrayList);
                     flag=true;
                     break;
                 case 3:
-                    admin.modifyTeacher();
+                    admin.modifyTeacher(teacherArrayList);
                     flag=true;
                     break;
                 case 4:
-                    admin.searchTeacher();
+                    admin.searchTeacher(teacherArrayList);
                     flag=true;
                     break;
                 case 5:
-                    admin.teacherInfo();
+                    admin.teacherInfo(teacherArrayList);
                 default:
                     System.out.println("invalid choice!");
                     choice = sc.nextInt();
@@ -393,6 +401,7 @@ public class Menu {
         }while(!flag);
     }
     private void checkCourseMgrChoice(int choice) {
+        Scanner sc = new Scanner(System.in);
         boolean flag=false;
         do{
             switch (choice){
@@ -401,23 +410,23 @@ public class Menu {
                     flag=true;
                     break;
                 case 1:
-                    admin.addCourse();
+                    admin.addCourse(coursesArrayList);
                     flag=true;
                     break;
                 case 2:
-                    admin.deleteCourse();
+                    admin.deleteCourse(coursesArrayList);
                     flag=true;
                     break;
                 case 3:
-                    admin.modifyCourse();
+                    admin.modifyCourse(coursesArrayList);
                     flag=true;
                     break;
                 case 4:
-                    admin.searchCourse();
+                    admin.searchCourse(coursesArrayList);
                     flag=true;
                     break;
                 case 5:
-                    admin.courseInfo();
+                    admin.courseInfo(coursesArrayList);
                 default:
                     System.out.println("invalid choice!");
                     choice = sc.nextInt();
@@ -426,6 +435,7 @@ public class Menu {
         }while(!flag);
     }
     private void checkClassMgrChoice(int choice) {
+        Scanner sc = new Scanner(System.in);
         boolean flag=false;
         do{
             switch (choice){
@@ -434,23 +444,23 @@ public class Menu {
                     flag=true;
                     break;
                 case 1:
-                    admin.addClass();
+                    admin.addClass(teacherArrayList,schoolClassArrayList);
                     flag=true;
                     break;
                 case 2:
-                    admin.deleteClass();
+                    admin.deleteClass(schoolClassArrayList);
                     flag=true;
                     break;
                 case 3:
-                    admin.modifyClass();
+                    admin.modifyClass(schoolClassArrayList);
                     flag=true;
                     break;
                 case 4:
-                    admin.searchClass();
+                    admin.searchClass(schoolClassArrayList);
                     flag=true;
                     break;
                 case 5:
-                    admin.classInfo();
+                    admin.classInfo(schoolClassArrayList);
                 default:
                     System.out.println("invalid choice!");
                     choice = sc.nextInt();
@@ -466,6 +476,7 @@ public class Menu {
         admin secondary menu
      */
     private void classManagerMenu() {
+        Scanner sc = new Scanner(System.in);
         int choice;
         System.out.println("-----------班级管理-----------");
         System.out.println("1.新增");
@@ -480,6 +491,7 @@ public class Menu {
         checkClassMgrChoice(choice);
     }
     private void courseManagerMenu() {
+        Scanner sc = new Scanner(System.in);
         int choice;
         System.out.println("-----------课程管理-----------");
         System.out.println("1.新增");
@@ -494,6 +506,7 @@ public class Menu {
         checkCourseMgrChoice(choice);
     }
     private void teacherManagerMenu() {
+        Scanner sc = new Scanner(System.in);
         int choice;
         System.out.println("-----------教师管理-----------");
         System.out.println("1.新增");
@@ -508,6 +521,7 @@ public class Menu {
         checkTeacherMgrChoice(choice);
     }
     private void studentManagerMenu() {
+        Scanner sc = new Scanner(System.in);
         int choice;
         System.out.println("-----------学生管理-----------");
         System.out.println("1.新增");
