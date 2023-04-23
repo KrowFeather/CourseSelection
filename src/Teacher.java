@@ -1,4 +1,3 @@
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
 @SuppressWarnings("Duplicates")
@@ -12,7 +11,7 @@ public class Teacher {
         this.password="123456";
     }
 
-    public void changePwd(Teacher this){
+    public void changePwd(){
         int choice;
         Scanner sc = new Scanner(System.in);
         String password;
@@ -38,7 +37,7 @@ public class Teacher {
         System.out.println("----------------------------");
     }
 
-    public void selfBio(Teacher this) {
+    public void selfBio() {
         System.out.println("----------------------------");
         System.out.println("用户名："+this.userName);
         System.out.println("姓名："+this.name);

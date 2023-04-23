@@ -12,7 +12,7 @@ public class Student {
     }
     public ArrayList<Courses> studentCourse = new ArrayList<>();
 
-    public void changePwd(Student this){
+    public void changePwd(){
         int choice;
         Scanner sc = new Scanner(System.in);
         String password;
@@ -38,7 +38,7 @@ public class Student {
         System.out.println("----------------------------");
     }
 
-    public void selfBio(Student this) {
+    public void selfBio() {
         System.out.println("----------------------------");
         System.out.println("用户名："+this.userName);
         System.out.println("姓名："+this.name);
