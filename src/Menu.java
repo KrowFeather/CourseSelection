@@ -1,6 +1,7 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 @SuppressWarnings("Duplicates")
-public class Menu extends CourseSelectionSystem{
+public class Menu extends ObjectList{
     //initialize main menu
     public void initial(){
         Scanner sc = new Scanner(System.in);
@@ -22,7 +23,7 @@ public class Menu extends CourseSelectionSystem{
         while(i<teacherArrayList.size()){
             int j=0;
             while(j<coursesArrayList.size()) {
-                if (coursesArrayList.get(j).teacher.equals(teacherArrayList.get(i).name)&&teacherArrayList.get(0).isCourseFound(coursesArrayList.get(j),teacherArrayList)) {
+                if (coursesArrayList.get(j).teacher.equals(teacherArrayList.get(i).name)&& isCourseFound(coursesArrayList.get(j),teacherArrayList)) {
                     teacherArrayList.get(i).ownCourses.add(coursesArrayList.get(j));
                     break;
                 }
@@ -30,7 +31,7 @@ public class Menu extends CourseSelectionSystem{
             }
             j=0;
             while(j< schoolClassArrayList.size()) {
-                if (schoolClassArrayList.get(j).teacher.equals(teacherArrayList.get(i).name)&&teacherArrayList.get(0).isClassFound(schoolClassArrayList.get(j),teacherArrayList)) {
+                if (schoolClassArrayList.get(j).teacher.equals(teacherArrayList.get(i).name)&& isClassFound(schoolClassArrayList.get(j),teacherArrayList)) {
                     teacherArrayList.get(i).ownSchoolClasses.add(schoolClassArrayList.get(j));
                     break;
                 }
@@ -39,7 +40,74 @@ public class Menu extends CourseSelectionSystem{
             i++;
         }
     }
+    //login
+    public boolean studentLogin(ArrayList<Student> studentArrayList){
+        Scanner sc = new Scanner(System.in);
+        String userName;
+        String password;
+        boolean flag=false;
+        int choice;
+        do {
+            int i=0;
+            System.out.println("请输入用户名：");
+            userName = sc.next();
+            System.out.println("请输入密码：");
+            password = sc.next();
+            while (i <studentArrayList.size()) {
+                if (userName.equals(studentArrayList.get(i).userName) && password.equals(studentArrayList.get(i).password)) {
+                    flag = true;
+                    break;
+                }
+                i++;
+            }
+            if (!flag) {
+                System.out.println("登录失败，密码错误或用户名不存在");
+                System.out.println("输入0退回主菜单,输入除0外任意数字重新登录");
+                choice = sc.nextInt();
+                if (choice == 0) {
+                    return false;
+                }
+            } else {
+                System.out.println("登录成功");
+                thisStudent=studentArrayList.get(i);
+            }
+        }while(!flag);
+        return true;
+    }
 
+    public boolean teacherLogin(ArrayList<Teacher> teacherArrayList){
+        Scanner sc = new Scanner(System.in);
+        String userName;
+        String password;
+        boolean flag=false;
+        int choice;
+        do {
+            int i=0;
+            System.out.println("请输入用户名：");
+            userName = sc.next();
+            System.out.println("请输入密码：");
+            password = sc.next();
+            while (i < teacherArrayList.size()) {
+                if (userName.equals(teacherArrayList.get(i).userName) && password.equals(teacherArrayList.get(i).password)) {
+                    flag = true;
+                    break;
+                }
+                i++;
+            }
+            if (!flag) {
+                System.out.println("登录失败，密码错误或用户名不存在");
+                System.out.println("输入0退回主菜单,输入除0外任意数字重新登录");
+                choice = sc.nextInt();
+                if (choice == 0) {
+                    return false;
+                }
+            } else {
+                System.out.println("登录成功");
+                thisTeacher=teacherArrayList.get(i);
+            }
+        }while(!flag);
+        return true;
+    }
     private void checkChoice(int choice){
         Scanner sc = new Scanner(System.in);
         boolean check;
@@ -50,21 +118,21 @@ public class Menu extends CourseSelectionSystem{
                     System.exit(0);
                     break;
                 case 1:
-                    check=adminLogin();
+                    check=admin.adminLogin();
                     if(check) {
                         adminMenu();
                     }
                     flag = true;
                     break;
                 case 2:
-                    check=studentLogin();
+                    check=studentLogin(studentArrayList);
                     if(check) {
                         studentMenu();
                     }
                     flag = true;
                     break;
                 case 3:
-                    check=teacherLogin();
+                    check=teacherLogin(teacherArrayList);
                     if(check) {
                         teacherMenu();
                     }
@@ -278,7 +346,7 @@ public class Menu extends CourseSelectionSystem{
     }
 
     private void teacherSelfBio() {
-
+        thisTeacher.selfBio();
     }
 
     private void classInfoForTeacher() {
@@ -342,23 +410,23 @@ public class Menu extends CourseSelectionSystem{
                     flag=true;
                     break;
                 case 1:
-                    admin.addStudent();
+                    admin.addStudent(studentArrayList);
                     flag=true;
                     break;
                 case 2:
-                    admin.deleteStudent();
+                    admin.deleteStudent(studentArrayList);
                     flag=true;
                     break;
                 case 3:
-                    admin.modifyStudent();
+                    admin.modifyStudent(studentArrayList);
                     flag=true;
                     break;
                 case 4:
-                    admin.searchStudent();
+                    admin.searchStudent(studentArrayList);
                     flag=true;
                     break;
                 case 5:
-                    admin.studentInfo();
+                    admin.studentInfo(studentArrayList);
                 default:
                     System.out.println("invalid choice!");
                     choice = sc.nextInt();
@@ -535,4 +603,37 @@ public class Menu extends CourseSelectionSystem{
         choice = sc.nextInt();
         checkStudentMgrChoice(choice);
     }
+
+    // UtIlS?
+
+    public boolean isClassFound(SchoolClass aSchoolClass, ArrayList<Teacher> teacherArrayList) {
+        int i=0;
+        while(i<teacherArrayList.size()){
+            int j=0;
+            while(j<teacherArrayList.get(i).ownSchoolClasses.size()) {
+                if (aSchoolClass.teacher.equals(teacherArrayList.get(i).ownSchoolClasses.get(j).teacher) && aSchoolClass.name.equals(teacherArrayList.get(i).ownSchoolClasses.get(j).name)){
+                    return false;
+                }
+                j++;
+            }
+            i++;
+        }
+        return true;
+    }
+
+    public boolean isCourseFound(Courses courses,ArrayList<Teacher> teacherArrayList) {
+        int i=0;
+        while(i<teacherArrayList.size()){
+            int j=0;
+            while(j<teacherArrayList.get(i).ownCourses.size()) {
+                if (courses.teacher.equals(teacherArrayList.get(i).ownCourses.get(j).teacher) && courses.name.equals(teacherArrayList.get(i).ownCourses.get(j).name)){
+                    return false;
+                }
+                j++;
+            }
+            i++;
+        }
+        return true;
+    }
+
 }

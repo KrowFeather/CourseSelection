@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 @SuppressWarnings("Duplicates")
-public class Teacher extends CourseSelectionSystem{
+public class Teacher extends ObjectList{
     public String userName;
     public String name;
     protected String password;
@@ -64,46 +64,5 @@ public class Teacher extends CourseSelectionSystem{
             i++;
         }
         System.out.println("----------------------------");
-    }
-
-    public void overview(ArrayList<Teacher> teacherArrayList){
-        System.out.println("----------------------------");
-        int i=0;
-        while(i<teacherArrayList.size()){
-            System.out.println("用户名\t\t姓名");
-            System.out.println(teacherArrayList.get(i).userName+"\t\t"+teacherArrayList.get(i).name);
-            i++;
-        }
-        System.out.println("----------------------------");
-    }
-
-    public boolean isClassFound(SchoolClass aSchoolClass,ArrayList<Teacher> teacherArrayList) {
-        int i=0;
-        while(i<teacherArrayList.size()){
-            int j=0;
-            while(j<teacherArrayList.get(i).ownSchoolClasses.size()) {
-                if (aSchoolClass.teacher.equals(teacherArrayList.get(i).ownSchoolClasses.get(j).teacher) && aSchoolClass.name.equals(teacherArrayList.get(i).ownSchoolClasses.get(j).name)){
-                    return false;
-                }
-                j++;
-            }
-            i++;
-        }
-        return true;
-    }
-
-    public boolean isCourseFound(Courses courses,ArrayList<Teacher> teacherArrayList) {
-        int i=0;
-        while(i<teacherArrayList.size()){
-            int j=0;
-            while(j<teacherArrayList.get(i).ownCourses.size()) {
-                if (courses.teacher.equals(teacherArrayList.get(i).ownCourses.get(j).teacher) && courses.name.equals(teacherArrayList.get(i).ownCourses.get(j).name)){
-                    return false;
-                }
-                j++;
-            }
-            i++;
-        }
-        return true;
     }
 }

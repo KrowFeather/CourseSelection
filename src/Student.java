@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 @SuppressWarnings("Duplicates")
-public class Student extends CourseSelectionSystem{
+public class Student extends ObjectList{
     public String userName;
     public String name;
     public String id;
@@ -10,6 +10,7 @@ public class Student extends CourseSelectionSystem{
         this.password="123456";
     }
     public ArrayList<Courses> studentCourse = new ArrayList<>();
+
     public void changePwd(){
         int choice;
         Scanner sc = new Scanner(System.in);
@@ -96,17 +97,17 @@ public class Student extends CourseSelectionSystem{
     }
 
     public void checkCourses(ArrayList<Courses> coursesArrayList) {
-        coursesArrayList.get(0).overview(coursesArrayList);
+        courseOverview(coursesArrayList);
     }
-
-    public void overview(){
+    public void courseOverview(ArrayList<Courses> coursesArrayList){
         System.out.println("----------------------------");
         int i=0;
-        while(i<studentArrayList.size()){
-            System.out.println("用户名\t\t姓名\t\tid");
-            System.out.println(studentArrayList.get(i).userName+"\t\t"+studentArrayList.get(i).name+"\t\t"+studentArrayList.get(i).id);
+        while(i<coursesArrayList.size()){
+            System.out.println("名称\t\t教师\t\t已选人数");
+            System.out.println(coursesArrayList.get(i).name+"\t\t"+coursesArrayList.get(i).teacher+"\t\t"+coursesArrayList.get(i).stuNumber);
             i++;
         }
         System.out.println("----------------------------");
     }
+
 }

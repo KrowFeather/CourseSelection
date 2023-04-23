@@ -1,13 +1,40 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 @SuppressWarnings("Duplicates")
-public class Administrator extends CourseSelectionSystem {
+public class Administrator{
     protected static final String userName="admin";
     protected static final String password="123456";
+
+    public boolean adminLogin(){
+        Scanner sc = new Scanner(System.in);
+        String userName;
+        String password;
+        boolean flag=false;
+        int choice;
+        do {
+            System.out.println("请输入用户名：");
+            userName=sc.next();
+            System.out.println("请输入密码：");
+            password=sc.next();
+            if (userName.equals(Administrator.userName) && password.equals(Administrator.password)) {
+                System.out.println("登录成功");
+                flag=true;
+            } else {
+                System.out.println("登录失败");
+                System.out.println("输入0退回主菜单,输入除0外任意数字重新登录");
+                choice=sc.nextInt();
+                if(choice==0){
+                    return false;
+                }
+            }
+        }while(!flag);
+        return true;
+    }
+
    /*
         student area
     */
-    public void addStudent() {
+    public void addStudent(ArrayList<Student> studentArrayList) {
         Student student = new Student();
         System.out.println("----------------------------");
         System.out.println("输入用户名");
@@ -28,7 +55,7 @@ public class Administrator extends CourseSelectionSystem {
         System.out.println("----------------------------");
     }
 
-    public void deleteStudent() {
+    public void deleteStudent(ArrayList<Student> studentArrayList) {
         System.out.println("----------------------------");
         System.out.println("请输入要删除的用户名");
         Scanner sc = new Scanner(System.in);
@@ -51,7 +78,7 @@ public class Administrator extends CourseSelectionSystem {
         System.out.println("----------------------------");
     }
 
-    public void modifyStudent() {
+    public void modifyStudent(ArrayList<Student> studentArrayList) {
         System.out.println("----------------------------");
         System.out.println("请输入要修改的用户名:");
         Scanner sc = new Scanner(System.in);
@@ -83,7 +110,7 @@ public class Administrator extends CourseSelectionSystem {
         }
     }
 
-    public void searchStudent() {
+    public void searchStudent(ArrayList<Student> studentArrayList) {
         System.out.println("----------------------------");
         System.out.println("请输入要查询的用户名:");
         Scanner sc = new Scanner(System.in);
@@ -111,8 +138,8 @@ public class Administrator extends CourseSelectionSystem {
         }
     }
 
-    public void studentInfo() {
-       studentArrayList.get(0).overview();
+    public void studentInfo(ArrayList<Student> studentArrayList) {
+       studentOverview(studentArrayList);
     }
 
     /*
@@ -214,7 +241,7 @@ public class Administrator extends CourseSelectionSystem {
     }
 
     public void teacherInfo(ArrayList<Teacher> teacherArrayList) {
-        teacherArrayList.get(0).overview(teacherArrayList);
+        teacherOverview(teacherArrayList);
     }
 
     /*
@@ -325,7 +352,7 @@ public class Administrator extends CourseSelectionSystem {
     }
 
     public void courseInfo(ArrayList<Courses> coursesArrayList) {
-        coursesArrayList.get(0).overview(coursesArrayList);
+        courseOverview(coursesArrayList);
     }
 
     /*
@@ -438,6 +465,51 @@ public class Administrator extends CourseSelectionSystem {
     }
 
     public void classInfo(ArrayList<SchoolClass> schoolClassArrayList) {
-        schoolClassArrayList.get(0).overview(schoolClassArrayList);
+        classOverview(schoolClassArrayList);
     }
+
+    //overview
+    public void teacherOverview(ArrayList<Teacher> teacherArrayList){
+        System.out.println("----------------------------");
+        int i=0;
+        while(i<teacherArrayList.size()){
+            System.out.println("用户名\t\t姓名");
+            System.out.println(teacherArrayList.get(i).userName+"\t\t"+teacherArrayList.get(i).name);
+            i++;
+        }
+        System.out.println("----------------------------");
+    }
+
+    public void studentOverview(ArrayList<Student> studentArrayList){
+        System.out.println("----------------------------");
+        int i=0;
+        while(i<studentArrayList.size()){
+            System.out.println("用户名\t\t姓名\t\tid");
+            System.out.println(studentArrayList.get(i).userName+"\t\t"+studentArrayList.get(i).name+"\t\t"+studentArrayList.get(i).id);
+            i++;
+        }
+        System.out.println("----------------------------");
+    }
+
+    public void courseOverview(ArrayList<Courses> coursesArrayList){
+        System.out.println("----------------------------");
+        int i=0;
+        while(i<coursesArrayList.size()){
+            System.out.println("名称\t\t教师\t\t已选人数");
+            System.out.println(coursesArrayList.get(i).name+"\t\t"+coursesArrayList.get(i).teacher+"\t\t"+coursesArrayList.get(i).stuNumber);
+            i++;
+        }
+        System.out.println("----------------------------");
+    }
+    public void classOverview(ArrayList<SchoolClass> schoolClassArrayList){
+        System.out.println("----------------------------");
+        int i=0;
+        while(i<schoolClassArrayList.size()){
+            System.out.println("名称\t\t教师");
+            System.out.println(schoolClassArrayList.get(i).name+"\t\t"+schoolClassArrayList.get(i).teacher);
+            i++;
+        }
+        System.out.println("----------------------------");
+    }
+
 }
