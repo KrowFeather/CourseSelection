@@ -1,7 +1,14 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 @SuppressWarnings("Duplicates")
-public class Menu extends ObjectList{
+public class Menu {
+    public ArrayList<Student> studentArrayList = new ArrayList<>();
+    public ArrayList<Teacher> teacherArrayList = new ArrayList<>();
+    public ArrayList<Courses> coursesArrayList = new ArrayList<>();
+    public ArrayList<SchoolClass> schoolClassArrayList = new ArrayList<>();
+    public Administrator admin = new Administrator();
+    public Student thisStudent;
+    public Teacher thisTeacher;
     //initialize main menu
     public void initial(){
         Scanner sc = new Scanner(System.in);
@@ -40,6 +47,7 @@ public class Menu extends ObjectList{
             i++;
         }
     }
+
     //login
     public boolean studentLogin(ArrayList<Student> studentArrayList){
         Scanner sc = new Scanner(System.in);
@@ -175,6 +183,7 @@ public class Menu extends ObjectList{
         System.out.println("3.查看班级信息");
         System.out.println("4.查看个人档案");
         System.out.println("5.修改密码");
+        System.out.println("6.成绩管理");
         System.out.println("0.退回主菜单");
         System.out.println("----------------------------");
         System.out.print("请选择：");
@@ -188,6 +197,7 @@ public class Menu extends ObjectList{
         System.out.println("1.选课管理");
         System.out.println("2.查看个人档案");
         System.out.println("3.修改密码");
+        System.out.println("4.查看成绩");
         System.out.println("0.退回主菜单");
         System.out.println("----------------------------");
         System.out.print("请选择：");
@@ -216,6 +226,10 @@ public class Menu extends ObjectList{
                     studentChangePwd();
                     flag=true;
                     break;
+                case 4:
+                    checkScore();
+                    flag=true;
+                    break;
                 default:
                     System.out.println("invalid choice!");
                     choice = sc.nextInt();
@@ -236,6 +250,10 @@ public class Menu extends ObjectList{
         }while(!flag);
     }
 
+    private void checkScore() {
+        thisStudent.checkScore(thisStudent);
+    }
+
     /*
         student secondary menu
      */
@@ -253,6 +271,10 @@ public class Menu extends ObjectList{
         choice=sc.nextInt();
         do {
             switch (choice) {
+                case 0:
+                    studentMenu();
+                    flag=true;
+                    break;
                 case 1:
                     thisStudent.addCourses(coursesArrayList);
                     flag = true;
@@ -269,6 +291,18 @@ public class Menu extends ObjectList{
                     System.out.println("invalid choice!");
                     choice=sc.nextInt();
                     break;
+            }
+        }while(!flag);
+        System.out.println("输入0返回");
+        flag=false;
+        do {
+            choice = sc.nextInt();
+            if (choice == 0) {
+                studentMenu();
+                flag=true;
+            }
+            else{
+                System.out.println("invalid choice!");
             }
         }while(!flag);
     }
@@ -313,6 +347,8 @@ public class Menu extends ObjectList{
                     teacherChangePwd();
                     flag=true;
                     break;
+                case 6:
+                    teacherScoreMenu();
                 default:
                     System.out.println("invalid choice!");
                     choice = sc.nextInt();
@@ -336,10 +372,103 @@ public class Menu extends ObjectList{
     /*
         teacher secondary menu
      */
-    private void courseManagerForTeacherMenu() {
-        thisTeacher.ownCoursesInfo();
+    private void teacherScoreMenu() {
+        Scanner sc = new Scanner(System.in);
+        int choice;
+        boolean flag=false;
+        System.out.println("-----------选课管理----------");
+        System.out.println("1.设置学生成绩");
+        System.out.println("2.查看学生成绩");
+        System.out.println("0.退回主菜单");
+        System.out.println("----------------------------");
+        System.out.println("请选择：");
+        choice=sc.nextInt();
+        do {
+            switch (choice) {
+                case 0:
+                    teacherMenu();
+                    flag=true;
+                    break;
+                case 1:
+                    thisTeacher.setStudentScore(studentArrayList);
+                    flag = true;
+                    break;
+                case 2:
+                    thisTeacher.checkStudentScore(studentArrayList);
+                    flag = true;
+                    break;
+                default:
+                    System.out.println("invalid choice!");
+                    choice=sc.nextInt();
+                    break;
+            }
+        }while(!flag);
+        System.out.println("输入0返回");
+        flag=false;
+        do {
+            choice = sc.nextInt();
+            if (choice == 0) {
+                teacherMenu();
+                flag=true;
+            }
+            else{
+                System.out.println("invalid choice!");
+            }
+        }while(!flag);
     }
+
+    private void courseManagerForTeacherMenu() {
+        Scanner sc = new Scanner(System.in);
+        int choice;
+        boolean flag=false;
+        System.out.println("-----------选课管理----------");
+        System.out.println("1.添加选课学生");
+        System.out.println("2.删除选课学生");
+        System.out.println("3.查看选课学生");
+        System.out.println("0.退回主菜单");
+        System.out.println("----------------------------");
+        System.out.println("请选择：");
+        choice=sc.nextInt();
+        do {
+            switch (choice) {
+                case 0:
+                    teacherMenu();
+                    flag=true;
+                    break;
+                case 1:
+                    thisTeacher.addStudentToCourse(studentArrayList);
+                    flag = true;
+                    break;
+                case 2:
+                    thisTeacher.deleteStudentFromCourse(studentArrayList);
+                    flag = true;
+                    break;
+                case 3:
+                    thisTeacher.ownCoursesInfo();
+                    flag = true;
+                    break;
+                default:
+                    System.out.println("invalid choice!");
+                    choice=sc.nextInt();
+                    break;
+            }
+        }while(!flag);
+        System.out.println("输入0返回");
+        flag=false;
+        do {
+            choice = sc.nextInt();
+            if (choice == 0) {
+                teacherMenu();
+                flag=true;
+            }
+            else{
+                System.out.println("invalid choice!");
+            }
+        }while(!flag);
+    }
+
     private void studentInfoForTeacher() {
+        thisTeacher.studentOverview(studentArrayList);
     }
     private void teacherChangePwd() {
         thisTeacher.changePwd();
@@ -604,7 +733,7 @@ public class Menu extends ObjectList{
         checkStudentMgrChoice(choice);
     }
 
-    // UtIlS?
+    // pre utils
 
     public boolean isClassFound(SchoolClass aSchoolClass, ArrayList<Teacher> teacherArrayList) {
         int i=0;

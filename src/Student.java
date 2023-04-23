@@ -1,17 +1,18 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 @SuppressWarnings("Duplicates")
-public class Student extends ObjectList{
+public class Student {
     public String userName;
     public String name;
     public String id;
-    protected String password;
+    public String password;
+    public double score;
     public Student(){
         this.password="123456";
     }
     public ArrayList<Courses> studentCourse = new ArrayList<>();
 
-    public void changePwd(){
+    public void changePwd(Student this){
         int choice;
         Scanner sc = new Scanner(System.in);
         String password;
@@ -19,10 +20,10 @@ public class Student extends ObjectList{
         System.out.println("请输入旧密码");
         do {
             password = sc.next();
-            if (password.equals(thisStudent.password)) {
+            if (password.equals(this.password)) {
                 System.out.println("请输入新密码");
                 password = sc.next();
-                thisStudent.password = password;
+                this.password = password;
                 flag=true;
             }else{
                 System.out.println("密码错误！");
@@ -37,10 +38,10 @@ public class Student extends ObjectList{
         System.out.println("----------------------------");
     }
 
-    public void selfBio() {
+    public void selfBio(Student this) {
         System.out.println("----------------------------");
-        System.out.println("用户名："+thisStudent.userName);
-        System.out.println("姓名："+thisStudent.name);
+        System.out.println("用户名："+this.userName);
+        System.out.println("姓名："+this.name);
         System.out.println("----------------------------");
     }
 
@@ -57,7 +58,7 @@ public class Student extends ObjectList{
         while(i<coursesArrayList.size()){
             if(name.equals(coursesArrayList.get(i).name)&&teacher.equals(coursesArrayList.get(i).teacher)){
                 System.out.println("添加成功");
-                thisStudent.studentCourse.add(coursesArrayList.get(i));
+                this.studentCourse.add(coursesArrayList.get(i));
                 coursesArrayList.get(i).stuNumber++;
                 flag=true;
                 break;
@@ -80,11 +81,11 @@ public class Student extends ObjectList{
         System.out.println("请输入教师名:");
         teacher=sc.next();
         boolean flag=false;
-        while(i<thisStudent.studentCourse.size()){
-            if(name.equals(thisStudent.studentCourse.get(i).name)&&teacher.equals(thisStudent.studentCourse.get(i).teacher)){
+        while(i<this.studentCourse.size()){
+            if(name.equals(this.studentCourse.get(i).name)&&teacher.equals(this.studentCourse.get(i).teacher)){
                 System.out.println("删除成功");
-                thisStudent.studentCourse.get(i).stuNumber--;
-                thisStudent.studentCourse.remove(i);
+                this.studentCourse.get(i).stuNumber--;
+                this.studentCourse.remove(i);
                 flag=true;
                 break;
             }
@@ -110,4 +111,9 @@ public class Student extends ObjectList{
         System.out.println("----------------------------");
     }
 
+    public void checkScore(Student thisStudent) {
+        System.out.println("----------------------------");
+        System.out.println("成绩为："+thisStudent.score);
+        System.out.println("----------------------------");
+    }
 }
