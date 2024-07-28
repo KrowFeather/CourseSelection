@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 @SuppressWarnings("Duplicates")
-public class Menu {
+public class CourseSelectionSystem{
     public ArrayList<Student> studentArrayList = new ArrayList<>();
     public ArrayList<Teacher> teacherArrayList = new ArrayList<>();
     public ArrayList<Courses> coursesArrayList = new ArrayList<>();
